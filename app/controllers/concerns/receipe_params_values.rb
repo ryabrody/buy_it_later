@@ -1,7 +1,7 @@
-module ReceipeParams
+module ReceipeParamsValues
   TASTY_HOST = 'tasty.co'
 
-  def receipe_params
+  def receipe_params_values
     url = URI(params[:url])
     if url.host == TASTY_HOST
       tasty_receipe_prams
@@ -16,12 +16,16 @@ module ReceipeParams
       url: params[:url],
       image: tasty.image,
       name: tasty.name,
+
+      # we put tasty.servings as proposal 
+      # to have a default value
       servings: tasty.servings,
+      original_servings: tasty.servings,
 
       # ingredients will get stored
       # as Ingredient record and not into
       # as Receipe record
-      full_ingredients: tasty.full_ingredients
+      original_ingredients: tasty.original_ingredients
     }
   end
 end

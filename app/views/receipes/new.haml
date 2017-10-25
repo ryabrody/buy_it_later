@@ -1,15 +1,17 @@
 %h1= t('.title')
 
 = simple_form_for(@receipe) do |f|
-  = f.input :url
-  = f.input :image
-  = f.input :name
+  = f.hidden_field :url
+  = f.hidden_field :image
+  = f.hidden_field :name
+  = f.hidden_field :original_servings
   = f.input :servings
+  = f.submit
   %br
 
   = f.simple_fields_for :ingredients do |builder|
-    = builder.input :name
-    = builder.input :unit
-    = builder.input :quantity
-    = builder.input :servings
+    = builder.hidden_field :quantity
+    = builder.hidden_field :unit
+    = builder.hidden_field :name
+    = builder.hidden_field :servings
     %br

@@ -1,15 +1,38 @@
 class ReceipesController < ApplicationController
-  include ReceipeParams
-  include IngredientParams
+  include ReceipeParamsValues
+  include IngredientParamsValues
 
   def new
-    @receipe = Receipe.new(receipe_params)
+    @receipe = Receipe.new(receipe_params_values)
     @receipe.ingredients = []
-    @receipe.full_ingredients.each do |full_ingredient|
-      @receipe.ingredients << Ingredient.new(ingredient_params(full_ingredient))
+    @receipe.original_ingredients.each do |original_ingredient|
+      @receipe.ingredients << Ingredient.new(ingredient_params_values(original_ingredient))
     end
-  rescue StandardError
-     flash[:error] = I18n.t('Not supported')
-     redirect_to(action: :index, controller: :ingredients)
+  end
+
+  def create
+    @receipe = Receipe.new(receipe_params)
+    if @receipe.valid?
+      @receipe.ingredients.each do |ingredient|
+        ingredient.quantity = calculate_quantity(ingredient.quantity, @receipe.original_servings, @receipe.servings)
+      end
+      @receipe.save
+      redirect_to(action: :index, controller: :ingredients)
+    else
+      render :new
+    end
+  end
+
+  def receipe_params
+    params.require(:receipe).permit(:url, :image, :name, :servings, :original_servings, ingredients_attributes:
+                                      [:id, :name, :unit, :quantity, :servings]
+                                   )
+  end
+
+  private
+
+  def calculate_quantity(quantity, original_servings, new_servings)
+    quantity_for_one = quantity / original_servings.to_i
+    quantity_for_one * new_servings
   end
 end

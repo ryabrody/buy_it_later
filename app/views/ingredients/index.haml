@@ -10,4 +10,12 @@
 - else
   %ul
     - @ingredients.each do |ingredient| 
-      %li= ingredient.name 
+      %li
+        = "#{ingredient.quantity} #{ingredient.unit} #{ingredient.name}"
+        %br
+        = t('.for')
+        = ingredient.receipe.servings
+        = t('.servings')
+        %br
+        = t('.from')
+        = link_to ingredient.receipe.name, ingredient.receipe.url

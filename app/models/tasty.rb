@@ -22,7 +22,7 @@ class Tasty
     meta_data[:recipeYield].delete(' servings').to_i
   end
 
-  def full_ingredients
+  def original_ingredients
     meta_data[:recipeIngredient]
   end
 end
