@@ -1,4 +1,8 @@
 %h1= t('.title')
+= simple_form_for @receipe do |f|
+  = f.input :url, as: :search
+  = f.button :submit
+
 - if @ingredients.empty?
   %p
     = t('.empty_state')
