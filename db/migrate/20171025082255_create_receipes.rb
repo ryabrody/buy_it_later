@@ -4,6 +4,7 @@ class CreateReceipes < ActiveRecord::Migration[5.1]
       t.string :url
       t.string :image
       t.string :name
+      t.integer :servings
     end
   end
 end

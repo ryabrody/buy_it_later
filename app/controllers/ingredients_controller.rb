@@ -21,6 +21,8 @@ class IngredientsController < ApplicationController
 
   def create_receipe
     return unless params[:ingredient][:name] =~ URI::regexp
-    redirect_to new_receipe_path(url: params[:ingredient][:name])
+    @receipe = Receipe.new(url: params[:ingredient][:name])
+    binding.pry
+    redirect_to new_receipe_path(@receipe)
   end
 end

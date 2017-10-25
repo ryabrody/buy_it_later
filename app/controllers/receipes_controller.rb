@@ -1,5 +1,6 @@
 class ReceipesController < ApplicationController
-  def new
+  def create
+    binding.pry
     @receipe = Receipe.new
   end
 end

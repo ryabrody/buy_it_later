@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20171025083119) do
     t.string "name"
     t.string "unit"
     t.decimal "quantity", precision: 10, scale: 5
-    t.integer "serving_for"
+    t.integer "servings"
     t.bigint "receipe_id"
     t.boolean "bought"
     t.index ["receipe_id"], name: "index_ingredients_on_receipe_id"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20171025083119) do
     t.string "url"
     t.string "image"
     t.string "name"
+    t.integer "servings"
   end
 
   add_foreign_key "ingredients", "receipes"
