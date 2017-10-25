@@ -1,8 +1,13 @@
 %h1= t('.title')
-= simple_form_for @receipe do |f|
-  = f.input :url, as: :search
+
+= simple_form_for @ingredient do |f|
+  = f.input :name, label: false
   = f.button :submit
 
 - if @ingredients.empty?
   %p
     = t('.empty_state')
+- else
+  %ul
+    - @ingredients.each do |ingredient| 
+      %li= ingredient.name 
